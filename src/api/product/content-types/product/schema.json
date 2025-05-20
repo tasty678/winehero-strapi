@@ -59,6 +59,11 @@
     "capacity": {
       "type": "integer",
       "required": true
+    },
+    "region": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::origin.origin"
     }
   }
 }

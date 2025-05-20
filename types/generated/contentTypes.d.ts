@@ -439,6 +439,34 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiOriginOrigin extends Struct.CollectionTypeSchema {
+  collectionName: 'origins';
+  info: {
+    displayName: 'Region';
+    pluralName: 'origins';
+    singularName: 'origin';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::origin.origin'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    Region: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiProductProduct extends Struct.CollectionTypeSchema {
   collectionName: 'products';
   info: {
@@ -473,6 +501,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String;
     price: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
+    region: Schema.Attribute.Relation<'oneToOne', 'api::origin.origin'>;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -991,6 +1020,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::brand.brand': ApiBrandBrand;
       'api::category.category': ApiCategoryCategory;
+      'api::origin.origin': ApiOriginOrigin;
       'api::product.product': ApiProductProduct;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
