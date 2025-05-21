@@ -29,10 +29,17 @@
       "target": "api::product.product",
       "mappedBy": "category"
     },
-    "parent": {
+    "category": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::category.category"
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "categories"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::category.category",
+      "mappedBy": "category"
     }
   }
 }
